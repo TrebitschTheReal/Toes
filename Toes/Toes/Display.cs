@@ -10,8 +10,8 @@ namespace Toes
     {
         private static int coordForWarningX = 40;
         private static int coordForWarningY = 3;
-        private static int coordForInformX = 3;
-        private static int coordForInformY = 50;
+        private static int coordForInformX = 2;
+        private static int coordForInformY = 25;
 
 
         public static void DisplayTheTable (char[,] gameTable)

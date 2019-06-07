@@ -29,6 +29,7 @@ namespace Toes
             {
                 UserInputForStep();
 
+
             } while (!IsCoordFreeFromSymbol(board));
         }
         private char[,] GenerateTempTable(Board board)
@@ -66,16 +67,23 @@ namespace Toes
                 tempGameTable[cursorStart[0], cursorStart[1]] = '\u2022';
                 Display.DisplayTheTable(tempGameTable);
                 actualPosLatest[0] = actualPos[0]; actualPosLatest[1] = actualPos[1];
+
+
                 PlayerStep(cursorStart);
+
+
                 Display.ClearTheUI();
                 areTheCoordsChoosed = AreWeGotTheCoords(areTheCoordsChoosed, actualPosLatest);
+
                 if (setBack == true)
                 {
                     tempGameTable[setBackCoords[0], setBackCoords[1]] = setBackChar;
                 }
 
+
+
             } while (areTheCoordsChoosed == false);
-       
+
             choosedCoords[0] = actualPos[0];
             choosedCoords[1] = actualPos[1];
         }
@@ -84,6 +92,9 @@ namespace Toes
             char movement;
             movement = Console.ReadKey().KeyChar;
             actualPos = CheckMove(movement, cursorStart);
+
+
+
         }
         private int[] CheckMove(char movement, int[] cursorStart)
         {
@@ -134,7 +145,7 @@ namespace Toes
             {
                 for (int j = 0; j < board.GameTable.GetLength(1); j++)
                 {
-                    board.GameTable[i, j] = tempGameTable[i,j];
+                    board.GameTable[i, j] = tempGameTable[i, j];
                 }
             }
         }
@@ -151,5 +162,32 @@ namespace Toes
                 return false;
             }
         }
+        private bool CheckBorders(int[] actualPos)
+        {
+            if (tempGameTable[actualPos[0], actualPos[1]] != '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void BackToTheMiddle(int[] coord)
+        {
+            coord[0] = tempGameTable.GetLength(0) / 2;
+            coord[1] = tempGameTable.GetLength(1) / 2;
+        }
     }
 }
+
+
+/*
+
+
+                if (CheckBorders(actualPos) == true)
+                {
+                    BackToTheMiddle(cursorStart);
+                }
+
+    */
