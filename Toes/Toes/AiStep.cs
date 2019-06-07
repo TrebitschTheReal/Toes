@@ -13,15 +13,18 @@ namespace Toes
         private int[] actualPos = new int[2];
         private int[] choosedCoords = new int[2];
         private char actualSymbol;
+        private char enemySymbol;
 
 
         public AiStep(Board board, char actualSymbol)
         {
             this.actualSymbol = actualSymbol;
+            GenerateEnemySymbol();
             tempGameTable = GenerateTempTable(board);
-            int posOne = StaticRandom.Instance.Next(3, 15);
-            int posTwo = StaticRandom.Instance.Next(3, 20);
-            board.GameTable[posOne, posTwo] = actualSymbol;
+
+            choosedCoords = GenerateStep();
+
+            board.GameTable[choosedCoords[0], choosedCoords[1]] = actualSymbol;
         }
         private char[,] GenerateTempTable(Board board)
         {
@@ -36,6 +39,127 @@ namespace Toes
             }
 
             return tempGameTable;
+        }
+        private int[] GenerateStep()
+        {
+            for (int i = 2; i < tempGameTable.GetLength(0)-2; i++)
+            {
+                for (int j = 2; j < tempGameTable.GetLength(1)-2; j++)
+                {
+                    if(MiddleCheck(i, j) == true)  //KÉSZ (középre illesztést csekkolja)
+                    {
+                        choosedCoords[0] = i;
+                        choosedCoords[1] = j;
+                        return choosedCoords;
+                    }
+                    else if(CheckThird(i, j) == true) // ha kettő után teszi 3. nak
+                    {
+                        choosedCoords[0] = i;
+                        choosedCoords[1] = j;
+                        return choosedCoords;
+                    }
+                    else if(BestStep(i, j) == true) // ha egy symbol van csak
+                    {
+                        choosedCoords[0] = i;
+                        choosedCoords[1] = j;
+                        return choosedCoords;
+                    }
+                    else if(FirstStep(i, j) == true) // első lépés
+                    {
+                        choosedCoords[0] = i;
+                        choosedCoords[1] = j;
+                        return choosedCoords;
+                    }
+
+
+                }
+            }
+        }
+        private bool MiddleCheck(int i, int j)
+        {
+            if(CheckAround(i,j) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckThird(int i, int j)
+        {
+
+        }
+        private void GenerateEnemySymbol()
+        {
+            if (actualSymbol == 'X')
+            {
+                enemySymbol = 'O';
+            }
+            else
+            {
+                enemySymbol = 'X';
+            }
+        }
+        private bool CheckAround(int i, int j)
+        {
+            if (CheckHorizontal(i, j) == true || CheckVertical(i, j) == true || CheckDiagonalLeft(i, j) == true || CheckDiagonalRight(i, j) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CheckVertical(int i, int j)
+        {
+            if (tempGameTable[i - 1, j] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i + 1, j] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        private bool CheckHorizontal(int i, int j)
+        {
+            if (tempGameTable[i, j - 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j + 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        private bool CheckDiagonalLeft (int i, int j)
+        {
+            if (tempGameTable[i - 1, j-1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j+1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        private bool CheckDiagonalRight(int i, int j)
+        {
+            if (tempGameTable[i - 1, j + 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i+1, j - 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }
