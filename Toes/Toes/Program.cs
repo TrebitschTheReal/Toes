@@ -17,3 +17,15 @@ namespace Toes
         }
     }
 }
+
+
+/*
+
+    - színezés
+    - moveset jelölés
+    - ne menjen ki pályáról
+
+
+
+
+ * */

@@ -8,8 +8,10 @@ namespace Toes
 {
     static class Display
     {
-        private static int coordX = 40;
-        private static int coordY = 3;
+        private static int coordForWarningX = 40;
+        private static int coordForWarningY = 3;
+        private static int coordForInformX = 3;
+        private static int coordForInformY = 50;
 
 
         public static void DisplayTheTable (char[,] gameTable)
@@ -26,12 +28,18 @@ namespace Toes
         } 
         public static void DisplayYourCoordsAreAlreadyUsed()
         {
-            Console.SetCursorPosition(coordX, coordY);
+            Console.SetCursorPosition(coordForWarningX, coordForWarningY);
             Console.Write("Ide nem tudsz tenni, mert már szerepel O vagy X");
+        }
+        public static void DisplayInfoForMove()
+        {
+            Console.SetCursorPosition(coordForInformX, coordForInformY);
+            Console.WriteLine("W: up, S: down, A: left, D: right    Space: action");
+
         }
         public static void ClearTheUI()
         {
-            Console.SetCursorPosition(coordX, coordY);
+            Console.SetCursorPosition(coordForWarningX, coordForWarningY);
             Console.Write("                                                                       ");
         }
     }

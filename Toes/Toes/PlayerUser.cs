@@ -13,11 +13,13 @@ namespace Toes
         private int[] actualPos = new int[2];
         private int[] choosedCoords = new int[2];
         private char actualSymbol;
-        private char setBackChar = '.';
+        private char setBackChar = char.MinValue;
 
 
         public PlayerUser(Board board, char actualSymbol)
         {
+            Display.DisplayInfoForMove();
+
             this.actualSymbol = actualSymbol;
             tempGameTable = GenerateTempTable(board);
             actualPos[0] = tempGameTable.GetLength(0) / 2;
