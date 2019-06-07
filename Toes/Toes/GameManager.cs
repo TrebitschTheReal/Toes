@@ -17,15 +17,32 @@ namespace Toes
         {
             var board = new Board();
             GenerateStarterSymbol();
+            bool isSomeOneWon = false;
 
-            while (true)
+            do
             {
                 ChangeSymbols();
                 var player = new PlayerUser(board, actualSymbol);
                 Display.DisplayTheTable(board.GameTable);
+                if (Umpire.CheckWin(board, actualSymbol) == true)
+                {
+                    Display.DisplaySomeoneWin(actualSymbol);
+                    isSomeOneWon = true;
+                    Console.ReadKey();
+                }
+
                 ChangeSymbols();
                 var ai = new AiStep(board, actualSymbol);
-            }
+                if (Umpire.CheckWin(board, actualSymbol) == true)
+                {
+                    Display.DisplayTheTable(board.GameTable);
+                    Display.DisplaySomeoneWin(actualSymbol);
+                    isSomeOneWon = true;
+                    Console.ReadKey();
+                }
+
+            } while (isSomeOneWon == false);
+
         }
         private void ChangeSymbols()
         {

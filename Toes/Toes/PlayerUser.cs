@@ -11,7 +11,7 @@ namespace Toes
         private int[] playerActualPos = new int[2];
         private char[,] tempGameTable;
         private int[] actualPos = new int[2];
-        private int[] choosedCoords = new int[2];
+        private int[] choosedCoords = new int[2]; // step koordináta, propertit neki!
         private char actualSymbol;
         private char setBackChar = char.MinValue;
 
@@ -29,9 +29,9 @@ namespace Toes
             {
                 UserInputForStep();
 
-
             } while (!IsCoordFreeFromSymbol(board));
         }
+
         private char[,] GenerateTempTable(Board board)
         {
             char[,] tempGameTable = new char[board.GameTable.GetLength(0), board.GameTable.GetLength(1)];
@@ -178,6 +178,9 @@ namespace Toes
             coord[0] = tempGameTable.GetLength(0) / 2;
             coord[1] = tempGameTable.GetLength(1) / 2;
         }
+
+        public int[] ChoosedCoords { get { return choosedCoords; } }
+        
     }
 }
 

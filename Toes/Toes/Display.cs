@@ -10,6 +10,10 @@ namespace Toes
     {
         private static int coordForWarningX = 40;
         private static int coordForWarningY = 3;
+
+        private static int coordForWinX = 40;
+        private static int coordForWinY = 5;
+
         private static int coordForInformX = 2;
         private static int coordForInformY = 25;
 
@@ -36,6 +40,11 @@ namespace Toes
             Console.SetCursorPosition(coordForInformX, coordForInformY);
             Console.WriteLine("W: up, S: down, A: left, D: right    Space: action");
 
+        }
+        public static void DisplaySomeoneWin(char actualSymbol)
+        {
+            Console.SetCursorPosition(coordForWinX, coordForWinY);
+            Console.WriteLine("{0} nyert!", actualSymbol);
         }
         public static void ClearTheUI()
         {
