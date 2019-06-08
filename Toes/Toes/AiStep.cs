@@ -42,29 +42,29 @@ namespace Toes
         }
         private int[] GenerateStep()
         {
-            for (int i = 2; i < tempGameTable.GetLength(0)-2; i++)
+            for (int i = 2; i < tempGameTable.GetLength(0) - 2; i++)
             {
-                for (int j = 2; j < tempGameTable.GetLength(1)-2; j++)
+                for (int j = 2; j < tempGameTable.GetLength(1) - 2; j++)
                 {
-                    if(MiddleCheck(i, j) == true)  //KÉSZ (középre illesztést csekkolja)
+                    if (MiddleCheck(i, j) == true)  //KÉSZ (középre illesztést csekkolja)
                     {
                         choosedCoords[0] = i;
                         choosedCoords[1] = j;
                         return choosedCoords;
                     }
-                    else if(CheckThird(i, j) == true) // ha kettő után teszi 3. nak
+                    else if (CheckThird(i, j) == true) // ha kettő után teszi 3. nak
                     {
                         choosedCoords[0] = i;
                         choosedCoords[1] = j;
                         return choosedCoords;
                     }
-                    else if(BestStep(i, j) == true) // ha egy symbol van csak
+                    else if (BestStep(i, j) == true) // ha egy symbol van csak
                     {
                         choosedCoords[0] = i;
                         choosedCoords[1] = j;
                         return choosedCoords;
                     }
-                    else if(FirstStep(i, j) == true) // első lépés
+                    else if (FirstStep(i, j) == true) // első lépés, lehetőleg az ellenfél mellé
                     {
                         choosedCoords[0] = i;
                         choosedCoords[1] = j;
@@ -74,10 +74,14 @@ namespace Toes
 
                 }
             }
+
+            choosedCoords[0] = StaticRandom.Instance.Next(3, tempGameTable.GetLength(0) - 3);
+            choosedCoords[1] = StaticRandom.Instance.Next(3, tempGameTable.GetLength(1) - 3);
+            return choosedCoords;
         }
         private bool MiddleCheck(int i, int j)
         {
-            if(CheckAround(i,j) == true)
+            if (CheckAroundMiddle(i, j) == true)
             {
                 return true;
             }
@@ -86,10 +90,24 @@ namespace Toes
                 return false;
             }
         }
-
         private bool CheckThird(int i, int j)
         {
-
+            return false;
+        } //
+        private bool BestStep(int i, int j)
+        {
+            return false;
+        }  //
+        private bool FirstStep(int i, int k)
+        {
+            if (CheckAroundOneEnemySymbol(i, j) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         private void GenerateEnemySymbol()
         {
@@ -102,7 +120,8 @@ namespace Toes
                 enemySymbol = 'X';
             }
         }
-        private bool CheckAround(int i, int j)
+
+        private bool CheckAroundMiddle(int i, int j)
         {
             if (CheckHorizontal(i, j) == true || CheckVertical(i, j) == true || CheckDiagonalLeft(i, j) == true || CheckDiagonalRight(i, j) == true)
             {
@@ -137,9 +156,9 @@ namespace Toes
             }
 
         }
-        private bool CheckDiagonalLeft (int i, int j)
+        private bool CheckDiagonalLeft(int i, int j)
         {
-            if (tempGameTable[i - 1, j-1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j+1] == actualSymbol)
+            if (tempGameTable[i - 1, j - 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j + 1] == actualSymbol)
             {
                 return true;
             }
@@ -151,7 +170,7 @@ namespace Toes
         }
         private bool CheckDiagonalRight(int i, int j)
         {
-            if (tempGameTable[i - 1, j + 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i+1, j - 1] == actualSymbol)
+            if (tempGameTable[i - 1, j + 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i + 1, j - 1] == actualSymbol)
             {
                 return true;
             }
@@ -161,5 +180,12 @@ namespace Toes
             }
 
         }
+
+        private bool CheckAroundOneEnemySymbol(int i, int j)
+        {
+
+        }
     }
 }
+
+// class radar -> paraméterek: gametable, i, j, middle v. end stb. a paraméter alapján indul a függvény amit a konstukrtor indít
