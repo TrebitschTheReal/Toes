@@ -14,10 +14,12 @@ namespace Toes
         private int[] choosedCoords = new int[2];
         private char actualSymbol;
         private char enemySymbol;
+        private Board board;
 
 
         public AiStep(Board board, char actualSymbol)
         {
+            this.board = board;
             this.actualSymbol = actualSymbol;
             GenerateEnemySymbol();
             tempGameTable = GenerateTempTable(board);
@@ -42,41 +44,11 @@ namespace Toes
         }
         private int[] GenerateStep()
         {
-            for (int i = 2; i < tempGameTable.GetLength(0) - 2; i++)
-            {
-                for (int j = 2; j < tempGameTable.GetLength(1) - 2; j++)
-                {
-                    if (MiddleCheck(i, j) == true)  //KÉSZ (középre illesztést csekkolja)
-                    {
-                        choosedCoords[0] = i;
-                        choosedCoords[1] = j;
-                        return choosedCoords;
-                    }
-                    else if (CheckThird(i, j) == true) // ha kettő után teszi 3. nak
-                    {
-                        choosedCoords[0] = i;
-                        choosedCoords[1] = j;
-                        return choosedCoords;
-                    }
-                    else if (BestStep(i, j) == true) // ha egy symbol van csak
-                    {
-                        choosedCoords[0] = i;
-                        choosedCoords[1] = j;
-                        return choosedCoords;
-                    }
-                    else if (FirstStep(i, j) == true) // első lépés, lehetőleg az ellenfél mellé
-                    {
-                        choosedCoords[0] = i;
-                        choosedCoords[1] = j;
-                        return choosedCoords;
-                    }
+            var radar = new Radar(board);
+
+            choosedCoords = radar.CheckAround();
 
 
-                }
-            }
-
-            choosedCoords[0] = StaticRandom.Instance.Next(3, tempGameTable.GetLength(0) - 3);
-            choosedCoords[1] = StaticRandom.Instance.Next(3, tempGameTable.GetLength(1) - 3);
             return choosedCoords;
         }
         private bool MiddleCheck(int i, int j)
@@ -198,8 +170,11 @@ namespace Toes
 
     prioritás: middle -> third -> second -> firstWithEnemy (ellenség mellé) -> firstWithoutEnemy (random akárhová)
 
+    A radar konstruktora lefuttatja a paraméterben megkapott private függvényét ami visszaad majd egy boolt VAGY lefut az összes prioritás szerint,
+    ahol true, ott megszakad és return
+
   CheckStyle = middle
-  var radar = new Radar(i, j, CheckStyle);
+  var radar = new Radar(i, j, gameTable, CheckStyle);
 
 
 
