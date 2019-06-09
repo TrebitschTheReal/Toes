@@ -44,10 +44,9 @@ namespace Toes
         }
         private int[] GenerateStep()
         {
-            var radar = new Radar(board);
+            var radar = new Radar(board, actualSymbol);
 
             choosedCoords = radar.CheckAround();
-
 
             return choosedCoords;
         }

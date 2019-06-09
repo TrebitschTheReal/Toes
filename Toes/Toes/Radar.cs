@@ -9,11 +9,12 @@ namespace Toes
     class Radar
     {
         Board board;
+        char actualSymbol;
 
-        public Radar(Board board)
+        public Radar(Board board, char actualSymbol)
         {
             this.board = board;
-
+            this.actualSymbol = actualSymbol;
         }
 
         public int[] CheckAround()
@@ -24,39 +25,221 @@ namespace Toes
             {
                 for (int j = 2; j < board.GameTable.GetLength(1)-2; j++)
                 {
-                    int verticalBefore = i - 1;
-                    int verticalAfter = i + 1;
-
-                    int horizontalBefore = j - 1;
-                    int horizontalAfter = j + 1;
-
-                    int diagonalLeftUpY = i - 1;
-                    int diagonalLeftUpX = j - 1;
-                    int diagonalLeftDownY = i + 1;
-                    int diagonalLeftDownX = j - 1;     
-
-                    int diagonalRightUpY = i - 1;
-                    int diagonalRightUpX = j + 1;
-                    int diagonalRightDownY = i + 1;
-                    int diagonalRightDownX = j + 1;
-
-                    if(MiddleCheck(verticalBefore, verticalAfter, horizontalBefore, horizontalAfter, diagonalLeftUpY, diagonalLeftUpX, diagonalLeftDownY, diagonalLeftDownX, diagonalRightUpY, diagonalRightUpX, diagonalRightDownY, diagonalRightDownX) == true)
+                    if(MiddleCheck(i,j) == true)
                     {
                         shotCoords[0] = i;
                         shotCoords[1] = j;
                         return shotCoords;
                     }
+
+                    else if(ThirdCheckVerticalStart(i,j) == true)
+                    {
+                        shotCoords[0] = i-1;
+                        shotCoords[1] = j;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckVerticalEnd(i,j) == true)
+                    {
+                        shotCoords[0] = i + 1;
+                        shotCoords[1] = j;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckHorizontalStart(i,j) == true)
+                    {
+                        shotCoords[0] = i;
+                        shotCoords[1] = j - 1;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckHorizontalEnd(i,j)== true)
+                    {
+                        shotCoords[0] = i;
+                        shotCoords[1] = j + 1;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckDiagonalLeftStart(i,j) == true)
+                    {
+                        shotCoords[0] = i - 1;
+                        shotCoords[1] = j - 1;
+                        return shotCoords;
+                    }
+                    else if (ThirdCheckDiagonalLeftEnd(i, j) == true)
+                    {
+                        shotCoords[0] = i + 1;
+                        shotCoords[1] = j + 1;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckDiagonalRightStart(i,j) == true)
+                    {
+                        shotCoords[0] = i - 1;
+                        shotCoords[1] = j + 1;
+                        return shotCoords;
+                    }
+                    else if(ThirdCheckDiagonalRightEnd(i,j) == true)
+                    {
+                        shotCoords[0] = i + 1;
+                        shotCoords[1] = j - 1;
+                        return shotCoords;
+                    }
+
+                    else if(SecondCheckVerticalStart(i,j) == true)
+                    {
+
+                    }
+
+
+
                 }
+            }
+            shotCoords[0] = StaticRandom.Instance.Next(2, 30);
+            shotCoords[1] = StaticRandom.Instance.Next(2, 30);
+            return shotCoords;
+        }
+
+        private bool MiddleCheck(int i, int j)
+        {
+            if(board.GameTable[i-1,j] == actualSymbol && board.GameTable[i,j] == '-' && board.GameTable[i+1,j] == actualSymbol)
+            {
+                return true;
+            }
+            else if (board.GameTable[i , j-1] == actualSymbol && board.GameTable[i, j] == '-' && board.GameTable[i, j+1] == actualSymbol)
+            {
+                return true;
+            }
+            else if (board.GameTable[i-1, j - 1] == actualSymbol && board.GameTable[i, j] == '-' && board.GameTable[i+1, j + 1] == actualSymbol)
+            {
+                return true;
+            }
+            else if (board.GameTable[i-1, j + 1] == actualSymbol && board.GameTable[i, j] == '-' && board.GameTable[i+1, j - 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        private bool MiddleCheck(int verticalBefore, int verticalAfter, int horizontalBefore, int horizontalAfter, int diagonalLeftUpY, int diagonalLeftUpX, int diagonalLeftDownY, int diagonalLeftDownX, int diagonalRightUpY, int diagonalRightUpX, int diagonalRightDownY, int diagonalRightDownX)
+        private bool ThirdCheckVerticalStart(int i, int j)
         {
-
+            if (board.GameTable[i - 1, j] == '-' && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckVerticalEnd(int i, int j)
+        {
+            if (board.GameTable[i - 1, j] == actualSymbol && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j] == '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckHorizontalStart(int i, int j)
+        {
+            if (board.GameTable[i, j - 1] == '-' && board.GameTable[i, j] == actualSymbol && board.GameTable[i, j + 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckHorizontalEnd(int i, int j)
+        {
+            if (board.GameTable[i, j - 1] == actualSymbol && board.GameTable[i, j] == actualSymbol && board.GameTable[i, j + 1] == '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckDiagonalLeftStart(int i, int j)
+        {
+            if (board.GameTable[i - 1, j - 1] == '-' && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j + 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckDiagonalLeftEnd(int i, int j)
+        {
+            if (board.GameTable[i - 1, j - 1] == actualSymbol && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j + 1] == '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckDiagonalRightStart(int i, int j)
+        {
+            if (board.GameTable[i - 1, j + 1] == '-' && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j - 1] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ThirdCheckDiagonalRightEnd(int i, int j)
+        {
+            if (board.GameTable[i - 1, j + 1] == actualSymbol && board.GameTable[i, j] == actualSymbol && board.GameTable[i + 1, j - 1] == '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-
-
-
+        private bool SecondCheckVerticalStart(int i, int j)
+        {
+            if (board.GameTable[i - 1, j] == '-' && board.GameTable[i, j] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool SecondCheckVerticalMiddle(int i, int j)
+        {
+            if (board.GameTable[i - 1, j] == actualSymbol && board.GameTable[i, j] == '-')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool SecondCheckVerticalEnd(int i, int j)
+        {
+            if (board.GameTable[i + 1, j] == '-' && board.GameTable[i, j] == actualSymbol)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
