@@ -188,4 +188,19 @@ namespace Toes
     }
 }
 
-// class radar -> paraméterek: gametable, i, j, middle v. end stb. a paraméter alapján indul a függvény amit a konstukrtor indít
+/* 
+    class radar -> paraméterek: gametable, i, j, middle v. end stb. a paraméter alapján indul a függvény amit a konstukrtor indít
+    pl:
+
+    elv: a legnagyobb nyerési esélytől haladni a legkisebbig: pl: nyerés egy szimbólummal a sorozat közepére, vagy harmadiknak
+    másodiknak tenni a szimbólumot, hogy elősegítsük az első lépést. Ha nincs szimbólum akkor lehetőleg az ellenfél mellé
+    ha elsők vagyunk random valahová.
+
+    prioritás: middle -> third -> second -> firstWithEnemy (ellenség mellé) -> firstWithoutEnemy (random akárhová)
+
+  CheckStyle = middle
+  var radar = new Radar(i, j, CheckStyle);
+
+
+
+    */
