@@ -50,36 +50,6 @@ namespace Toes
 
             return choosedCoords;
         }
-        private bool MiddleCheck(int i, int j)
-        {
-            if (CheckAroundMiddle(i, j) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        private bool CheckThird(int i, int j)
-        {
-            return false;
-        } //
-        private bool BestStep(int i, int j)
-        {
-            return false;
-        }  //
-        private bool FirstStep(int i, int k)
-        {
-            if (CheckAroundOneEnemySymbol(i, j) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         private void GenerateEnemySymbol()
         {
             if (actualSymbol == 'X')
@@ -90,71 +60,6 @@ namespace Toes
             {
                 enemySymbol = 'X';
             }
-        }
-
-        private bool CheckAroundMiddle(int i, int j)
-        {
-            if (CheckHorizontal(i, j) == true || CheckVertical(i, j) == true || CheckDiagonalLeft(i, j) == true || CheckDiagonalRight(i, j) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        private bool CheckVertical(int i, int j)
-        {
-            if (tempGameTable[i - 1, j] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i + 1, j] == actualSymbol)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        private bool CheckHorizontal(int i, int j)
-        {
-            if (tempGameTable[i, j - 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j + 1] == actualSymbol)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        private bool CheckDiagonalLeft(int i, int j)
-        {
-            if (tempGameTable[i - 1, j - 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i, j + 1] == actualSymbol)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        private bool CheckDiagonalRight(int i, int j)
-        {
-            if (tempGameTable[i - 1, j + 1] == actualSymbol && tempGameTable[i, j] == '-' && tempGameTable[i + 1, j - 1] == actualSymbol)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
-        private bool CheckAroundOneEnemySymbol(int i, int j)
-        {
-
         }
     }
 }
