@@ -183,14 +183,3 @@ namespace Toes
         
     }
 }
-
-
-/*
-
-
-                if (CheckBorders(actualPos) == true)
-                {
-                    BackToTheMiddle(cursorStart);
-                }
-
-    */

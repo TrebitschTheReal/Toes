@@ -26,6 +26,4 @@ namespace Toes
     - ne menjen ki pályáról
 
 
-
-
  * */

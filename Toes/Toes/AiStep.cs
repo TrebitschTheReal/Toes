@@ -66,19 +66,12 @@ namespace Toes
 
 /* 
     class radar -> paraméterek: gametable, i, j, middle v. end stb. a paraméter alapján indul a függvény amit a konstukrtor indít
-    pl:
 
     elv: a legnagyobb nyerési esélytől haladni a legkisebbig: pl: nyerés egy szimbólummal a sorozat közepére, vagy harmadiknak
     másodiknak tenni a szimbólumot, hogy elősegítsük az első lépést. Ha nincs szimbólum akkor lehetőleg az ellenfél mellé
     ha elsők vagyunk random valahová.
 
     prioritás: middle -> third -> second -> firstWithEnemy (ellenség mellé) -> firstWithoutEnemy (random akárhová)
-
-    A radar konstruktora lefuttatja a paraméterben megkapott private függvényét ami visszaad majd egy boolt VAGY lefut az összes prioritás szerint,
-    ahol true, ott megszakad és return
-
-  CheckStyle = middle
-  var radar = new Radar(i, j, gameTable, CheckStyle);
 
 
 
